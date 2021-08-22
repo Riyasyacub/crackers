@@ -1,0 +1,6 @@
+development:
+  clients:
+    default:
+      uri: mongodb+srv://Riyas:riyasgmail123@ecommerce.ogvex.mongodb.net/ecommerce?retryWrites=true&w=majority
+      options:
+        server_selection_timeout: 5

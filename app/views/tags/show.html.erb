@@ -1,0 +1,16 @@
+<h1><%= @tag.name %></h1>
+<h3>Categories</h3>
+<ul>
+<% @tag.category.each do |cat| %>
+  <li> <%= link_to cat.name, tag_show_path(cat.id) %> </li>
+<% end %>
+</ul>
+<h3>Products</h3>
+<ul>
+<% @tag.products.each do |prod| %>
+  <li><%= link_to prod.name, details_show_path(prod.id) %></li>
+<% end %>
+</ul>
+
+
+<%= link_to 'Delete tag', tags_delete_path(@tag.id), method: 'delete' %>

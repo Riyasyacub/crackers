@@ -1,0 +1,23 @@
+Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  root 'pages#index'
+  get '/prod_show/:id', to: 'pages#prod_show', as: 'prod_show'
+  get '/tag_show/:id', to: 'pages#tag_show', as: 'tag_show'
+  get '/details_show/:id', to: 'pages#details_show', as: 'details_show'
+  get 'categories/new', to: 'categories#new', as: 'cat_new'
+  get 'categories/edit/:id', to: 'categories#edit', as: 'cat_edit'
+  # get 'categories/create', to: 'categories#create'
+  post 'categories/create', to: 'categories#create', as: 'cat_create'
+  patch 'categories/update', to: 'categories#update', as: 'cat_update'
+  delete 'categories/delete/:id', to: 'categories#destroy', as: 'cat_delete'
+  get 'products/new', to: 'products#new', as: 'prod_new'
+  get 'products/edit/:id', to: 'products#edit', as: 'prod_edit'
+  post 'products/create', to: 'products#create', as: 'prod_create'
+  patch 'products/update', to: 'products#update',as: 'prod_update'
+  delete 'products/delete/:id', to: 'products#destroy', as: 'prod_delete'
+  get 'tags/index', to: 'tags#index', as: 'tags_index'
+  get 'tags/new', to: 'tags#new', as: 'tag_new'
+  get 'tags/show/:id', to: 'tags#show', as: 'tags_show'
+  delete 'tag/delete/:id', to: 'tags#delete', as: 'tags_delete'
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+end

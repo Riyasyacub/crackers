@@ -1,0 +1,11 @@
+<h1> Tags </h1>
+
+
+<ul>
+<% @tags.each do |t| %>
+  <li> <%= link_to t.name , prod_show_path(t.id) %> </li>
+<% end %>
+</ul>
+<%= link_to 'Edit Category', cat_edit_path(@cat) %>
+<br>
+<%= link_to "Delete Category", cat_delete_path(@cat), method: 'delete' %>
