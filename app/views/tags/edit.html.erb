@@ -1,2 +1,14 @@
-<h1>Tags#edit</h1>
-<p>Find me in app/views/tags/edit.html.erb</p>
+<h1><%= @tag.name %></h1>
+<%= form_for @tag, url: { action: "update" } do |tag| %>
+  <%= tag.text_field :id , style: "display: none;"%>
+  <%= tag.label :name %>
+  <%= tag.text_field :name %>
+  <br>
+  <%= tag.label :category %>
+  <%= tag.select :category, @category , { selected: @select},{ multiple: true} %>
+  <br>
+  <%= tag.label :product %>
+  <%= tag.select :product, @product , { selected: @select_p},{ multiple: true} %>
+  <br>
+  <%= tag.submit "Update" %>
+<% end %>

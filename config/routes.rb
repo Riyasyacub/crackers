@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get 'tags/index', to: 'tags#index', as: 'tags_index'
   get 'tags/new', to: 'tags#new', as: 'tag_new'
   get 'tags/show/:id', to: 'tags#show', as: 'tags_show'
-  delete 'tag/delete/:id', to: 'tags#delete', as: 'tags_delete'
+  delete 'tags/delete/:id', to: 'tags#delete', as: 'tags_delete'
+  get 'tags/edit/:id', to: 'tags#edit', as: 'tags_edit'
+  patch 'tags/update', to: 'tags#update', as: 'tags_update'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

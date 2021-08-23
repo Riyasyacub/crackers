@@ -71,7 +71,3 @@ gem "xmpp4r", "~> 0.5.6"
 gem "slack-notifier", "~> 2.4"
 
 gem "jquery-rails", "~> 4.4"
-
-gem "heroku", "~> 3.99"
-
-gem "heroku-api", "~> 0.4.3"

@@ -1,3 +1,4 @@
+<div data-turbolinks = false >
 <h1>Categories</h1>
 <% @cat.each do |c| %>
   <p> <%= link_to c.name, tag_show_path(c.id) %> </p>
@@ -7,3 +8,4 @@
 <p><%= link_to 'Add Category', cat_new_path %></p>
 <p><%= link_to 'Add Product', prod_new_path %></p>
 <p><%= link_to 'Manage Tags', tags_index_path %></p>
+</div>
