@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'pages/index'
+  get 'pages/feedback'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   root 'pages#index'
   get '/prod_show/:id', to: 'pages#prod_show', as: 'prod_show'
