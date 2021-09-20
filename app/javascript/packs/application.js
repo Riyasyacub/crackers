@@ -9,6 +9,8 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
 
+
+
 // require("@rails/ujs").start()
 Rails.start()
 Turbolinks.start()
@@ -16,26 +18,25 @@ ActiveStorage.start()
 require("jquery")
 
 $(document).ready(function(){
-  $("#add_tag").click(function(){
-    $(this).hide();
-    
-    $("#show_tag").show();
-  });
+  
   
   // $("#create_tag").click(function(){
   //   console.log("hello")
   // })
-  $("#create_tag").on('click',function(e){
-    console.log("ajax")
+  $("#cmp").on('change',function(e){
+    // console.log("ajax")
     $.ajax({
       method: 'GET',
-      url: '../../tags/new',
-      data: {name: $("#tag_name").val()},
+      url: '/crck_fetch',
+      data: {company: $("#cmp").val()},
       success: function(response){
         console.log(response)
-        $("#show_tag").hide()
-        $("#select").append(new Option(response['name'],response['_id']['$oid']))
-        $("#add_tag").show()
+        // $("#show_tag").hide()
+        for (var i=0;i<response.length;i++){
+          $("#crck").append(new Option(response[i][0], response[i][1]["$oid"]))
+        }
+        $("#crck").prop("disabled",false)
+        // $("#add_tag").show()
       },
       error: function(response){
         console.log("error");

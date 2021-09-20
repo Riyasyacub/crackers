@@ -1,0 +1,10 @@
+<% @feeds.each do |f| %>
+  <div>
+    <p><%= f.name %></p>
+    <p><%= f.phone_number %></p>
+    <p><%= f.company[:name] %> </p>
+    <p><%= f.cracker[:name] %> </p>
+    <p><%= f.description %></p>
+    <br>
+  </div>
+<% end %>

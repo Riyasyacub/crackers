@@ -1,0 +1,89 @@
+<% cart = {} %>
+
+<textarea id="cart" hidden ></textarea>
+<% @companies.each do |com| %>
+  <button id="<%= com.id %>" class="crack_show"  ><%= com.name %></button>
+<% end %>
+<a href="javascript:void[0]" id="view_cart" >View Cart</a>
+<div id= "crack_show" >
+  <% comp =  @companies.first %>
+  <% comp.crackers.each do |com| %>
+  <div id="<%= com.id %>" >
+    <h3><%= com['name'] %></h3>
+    <p id="<%= %>" ><%= com['price']%></p>
+    <p><%= com['type'] %></p>
+    <p><%= com['description'] %></p>
+    <button class="dec" > - </button>
+    <input id="display_<%= com.id %>" type="number" value=0 >
+    <button class="inc" > + </button>
+    <button class="add_cart" >Add to Cart</button>
+  </div>
+  <% end %>
+</div>
+
+<script>
+    var cart = {}
+    $(document).on('click','.crack_show',function(){
+      $.ajax({
+        method: 'GET',
+        url: '/crack_show',
+        data: {company_id: $(this).attr('id')},
+        success: function(response){
+        
+          str = "";
+            for(let i=0;i<response.length;i++){
+            var val = 0
+            var loc = JSON.parse(localStorage.getItem("cart_val"))
+            //console.log(Object.keys(loc))
+            //console.log(response)
+          if (loc[response[i]["_id"]["$oid"]] != null){
+            val = loc[response[i]["_id"]["$oid"]]
+            }
+               
+                str += `<div id=`+ response[i]["_id"]["$oid"] +` >
+                   <h3>`+ response[i]['name'] +`</h3>
+                   <p>`+ response[i]['price']+`</p>
+                   <p>`+ response[i]['type'] +`</p>
+                   <p>`+ response[i]['description'] +`</p>
+                   <button class="dec" > - </button>
+    <input id="display_`+ response[i]["_id"]['$oid'] +`" type="number" value=`+ val +` >
+    <button class="inc" > + </button>
+    <button class="add_cart" >Add to Cart</button>
+                </div>`
+              }
+              $("#crack_show").html(str);
+          },
+        error: function(response){
+          console.log("error")
+          }
+      })
+    })
+    $(document).on('click',".inc",function(){
+       let idd = $(this).parent().attr('id')
+       $("#display_"+ idd).val(($("#display_"+idd).val()*1)+1)
+       
+    })
+    $(document).on('click',".dec",function(){
+       let idd = $(this).parent().attr('id')
+       if ($("#display_"+idd).val() > 0){
+        $("#display_"+ idd).val(($("#display_"+idd).val()*1)-1)
+       }
+       console.log($("#display_"+ idd).val())
+    })
+    $(document).on('click',".add_cart",function(){
+      let idd = String($(this).parent().attr('id'))
+      let val = $("#display_"+idd).val()
+      if (val>=0){
+        cart[idd] = parseInt(val)
+      }
+      $("#cart").val(JSON.stringify(cart))
+      localStorage.setItem("cart_val", JSON.stringify(cart));
+      console.log(cart)
+    })
+  $(document).ready(function(){
+    localStorage.setItem("cart_val",{})
+  })
+  $(document).on("click",".view_cart",function(){
+
+  })
+</script>

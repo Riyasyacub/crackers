@@ -1,0 +1,26 @@
+<% if !flash[:success].nil? %>
+      <p class="alert alert-success"><%= flash[:success] %></p>
+  <% end %>
+  <% if !flash[:error].nil? %>
+      <p class="alert alert-success"><%= flash[:error] %></p>
+  <% end %>
+<%= form_for @feedback, url: feed_update_path do |f| %>
+<%= f.label :name %>
+<%= f.text_field :name,{required: true} %>
+<br>
+<%= f.label :phone_number%>
+<%= f.number_field :phone_number,{required: true} %>
+<br>
+<%= f.label :company %>
+<%= f.select :company,@company, {prompt: "select the company",required: true}, {id: "cmp"} %>
+<br>
+<%= f.label :cracker %>
+<%= f.select :cracker, [], {prompt: "select the cracker",required: true}, {id: "crck", disabled: true} %>
+<br>
+
+<%= f.label :description, "" %>
+<%= f.text_area :description,{required: true} %>
+<br>
+<%= f.submit "Post" %>
+<% end %>
+
