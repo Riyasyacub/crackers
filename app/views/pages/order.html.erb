@@ -9,8 +9,8 @@
   <% comp =  @companies.first %>
   <% comp.crackers.each do |com| %>
   <div id="<%= com.id %>" >
-    <h3><%= com['name'] %></h3>
-    <p id="<%= %>" ><%= com['price']%></p>
+    <h3 id="name_<%= com.id %>"><%= com['name'] %></h3>
+    <p id="price_<%= com.id %>" ><%= com['price']%></p>
     <p><%= com['type'] %></p>
     <p><%= com['description'] %></p>
     <button class="dec" > - </button>
@@ -20,9 +20,15 @@
   </div>
   <% end %>
 </div>
+<div id="cart_show" >
+
+</div>
 
 <script>
     var cart = {}
+    $(document).on('click','#view_cart',function(){
+
+    })
     $(document).on('click','.crack_show',function(){
       $.ajax({
         method: 'GET',
@@ -35,11 +41,11 @@
             var val = 0
             var loc = JSON.parse(localStorage.getItem("cart_val"))
             //console.log(Object.keys(loc))
-            //console.log(response)
+            //console.log(loc)
           if (loc[response[i]["_id"]["$oid"]] != null){
-            val = loc[response[i]["_id"]["$oid"]]
+            val = loc[response[i]["_id"]["$oid"]][0]
             }
-               
+               //console.log(val)
                 str += `<div id=`+ response[i]["_id"]["$oid"] +` >
                    <h3>`+ response[i]['name'] +`</h3>
                    <p>`+ response[i]['price']+`</p>
@@ -74,7 +80,7 @@
       let idd = String($(this).parent().attr('id'))
       let val = $("#display_"+idd).val()
       if (val>=0){
-        cart[idd] = parseInt(val)
+        cart[idd] = [parseInt(val),parseInt($("#price_"+idd).text()),$("#name_"+idd).text()]
       }
       $("#cart").val(JSON.stringify(cart))
       localStorage.setItem("cart_val", JSON.stringify(cart));
@@ -83,7 +89,32 @@
   $(document).ready(function(){
     localStorage.setItem("cart_val",{})
   })
-  $(document).on("click",".view_cart",function(){
+  $(document).on("click","#view_cart",function(){
+    var loc = JSON.parse(localStorage.getItem("cart_val"))
+    var keys = Object.keys(loc)
+    var tot_cost = 0
+    var str = `<table class='table table-bordered' >
+    <thead>
+      <tr>
+        <th scope="col" >S.no</th>
+        <th scope="col" >Name</th>
+        <th scope="col" >Price per Item</th>
+        <th scope="col" >Quantity</th>
+        <th scope="col" >Total Cost</th>
+      </tr>
+    </thead><tbody>`
+    for(var i=0;i<keys.length; i++){
 
+    str += `<tr>
+    <td scope="row" >`+ i+1 +`</td>
+    <td>`+ loc[keys[i]][2] +`</td>
+    <td>`+ loc[keys[i]][1] +`</td>
+    <td>`+ loc[keys[i]][0] +`</td>
+    <td>`+ loc[keys[i]][1] * loc[keys[i]][0] +`</td>
+    </tr>`
+    tot_cost += loc[keys[i]][1] * loc[keys[i]][0]
+    }
+    str +=`<tr class="table-success" ><td></td><td></td><td></td><td>Total Cost</td><td>`+ tot_cost +`</td></tr></tbody></table>`
+    $("#cart_show").html(str)
   })
 </script>
