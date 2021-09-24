@@ -4,5 +4,27 @@ class OrdersController < ApplicationController
     respond_to do |format|
       format.json {render json: @crack}
     end
+    
   end
+
+  def order_update
+    
+    order = Order.new(order_params)
+    if order.save
+      respond_to do |format|
+        format.json {render json: order}
+      end
+      
+    else
+      
+
+    end
+  end
+
+
+  private
+
+    def order_params
+      params.permit(:name,:phone,:address,:cart => {})
+    end
 end

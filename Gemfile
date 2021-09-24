@@ -73,3 +73,5 @@ gem "slack-notifier", "~> 2.4"
 gem "jquery-rails", "~> 4.4"
 
 gem "bootstrap", "~> 5.1"
+
+gem "devise", "~> 4.8"

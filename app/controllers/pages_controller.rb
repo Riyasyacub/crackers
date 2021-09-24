@@ -37,12 +37,18 @@ class PagesController < ApplicationController
   def order
     @companies = Company.all
     @crackers = Cracker.all
+    @order = Order.new
   end
   
+  def order_show
+    @order = Order.all
+  end
 
   private
 
     def feed_params
       params.require(:feedback).permit(:name, :phone_number, :company, :cracker, :description)
     end
+
+    
 end
